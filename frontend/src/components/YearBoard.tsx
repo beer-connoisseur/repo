@@ -73,10 +73,16 @@ export function YearBoard({ days, peak }: YearBoardProps) {
                   onClick={() =>
                     setSelected((current) => (current === row.month ? null : row.month))
                   }
-                  onPointerEnter={() => setHovered(row.month)}
-                  onPointerLeave={() =>
-                    setHovered((current) => (current === row.month ? null : current))
-                  }
+                  onPointerEnter={(event) => {
+                    if (event.pointerType !== 'touch') {
+                      setHovered(row.month);
+                    }
+                  }}
+                  onPointerLeave={(event) => {
+                    if (event.pointerType !== 'touch') {
+                      setHovered((current) => (current === row.month ? null : current));
+                    }
+                  }}
                   onFocus={() => setHovered(row.month)}
                   onBlur={() => setHovered((current) => (current === row.month ? null : current))}
                 >
@@ -110,7 +116,7 @@ export function YearBoard({ days, peak }: YearBoardProps) {
       </div>
 
       <div className="year-board__legend">
-        <span className="year-board__legend-title">Действий за период месяца</span>
+        <span className="year-board__legend-title">Действий за неделю</span>
 
         <span className="year-board__legend-scale">
           <span className="year-board__legend-bound">реже</span>
